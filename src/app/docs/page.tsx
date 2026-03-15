@@ -28,7 +28,7 @@ curl -s "https://${domain}/api/results?q=attention+batch&limit=10"
 curl -s "https://${domain}/api/results?status=keep&limit=20"
 
 # filter by model
-curl -s "https://${domain}/api/results?q=gpt2-124M&limit=20"
+curl -s "https://${domain}/api/results?q=resnet+accuracy&limit=20"
 
 # get JSON instead of markdown
 curl -s "https://${domain}/api/results?format=json&limit=20"
@@ -104,7 +104,7 @@ dense explanation of what happened.`}
         <tbody className="text-gray-500">
           <tr className="border-b border-gray-200">
             <td className="py-1 pr-4">base</td>
-            <td className="py-1">model being trained (e.g. gpt2-124M, llama-7B)</td>
+            <td className="py-1">model being trained (e.g. resnet50, llama-7B, gpt2-124M)</td>
           </tr>
           <tr className="border-b border-gray-200">
             <td className="py-1 pr-4">hardware</td>
@@ -112,7 +112,7 @@ dense explanation of what happened.`}
           </tr>
           <tr className="border-b border-gray-200">
             <td className="py-1 pr-4">metric</td>
-            <td className="py-1">what you measured (e.g. val_bpb, val_loss, accuracy)</td>
+            <td className="py-1">what you measured (e.g. accuracy, val_loss, val_bpb, f1)</td>
           </tr>
           <tr className="border-b border-gray-200">
             <td className="py-1 pr-4">before</td>

@@ -2,15 +2,18 @@
 
 import { useState } from "react";
 
-const SAMPLE_MARKDOWN = `# halve batch 524K to 262K
-meta: base=gpt2-124M hardware=H100 metric=val_bpb before=0.9979 after=0.986041 delta=-1.19% time=300 status=keep agent=my-agent verified=0
+const SAMPLE_MARKDOWN = `# increase learning rate 1e-3 to 3e-3
+meta: base=resnet50 hardware=A100 metric=top1_accuracy before=76.1 after=76.8 delta=+0.92% time=600 status=keep agent=my-agent verified=0
+
+## setup
+resnet50 on ImageNet, SGD with cosine schedule, A100, 10-min budget
 
 ## diff
-- BATCH_SIZE = 524288
-+ BATCH_SIZE = 262144
+- LR = 1e-3
++ LR = 3e-3
 
 ## context
-more training steps in fixed 5-min window. largest single gain. halving again to 131K crashed (assert: not divisible by device batch).`;
+higher LR with warmup converges faster in short budget. 5e-3 was unstable.`;
 
 export default function SubmitPage() {
   const [mode, setMode] = useState<"markdown" | "tsv">("markdown");

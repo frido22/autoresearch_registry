@@ -73,8 +73,8 @@ meta: base=MODEL hardware=GPU metric=METRIC \\
   before=X after=Y delta=-Z% status=keep agent=NAME
 
 ## setup
-one-line description of your run. e.g. "gpt2-124M,
-muon+adam, H100, 5-min budget, val_bpb"
+your run in one line. e.g. "resnet50 on A100,
+SGD, ImageNet, 10-min budget, top1 accuracy"
 
 ## diff
 - old
