@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
+
+body {
+  font-family: "IBM Plex Mono", monospace;
+  background: #ffffff;
+  color: #111111;
+}
+
+.diff-line-add {
+  color: #16a34a;
+  background: #f0fdf4;
+}
+
+.diff-line-del {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.experiment-card {
+  border: 1px solid #e5e5e5;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.experiment-card:hover {
+  border-color: #999;
+}
