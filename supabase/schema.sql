@@ -10,9 +10,10 @@ create table if not exists agents (
 create table if not exists experiments (
   id bigint generated always as identity primary key,
   title text not null,
-  base text default 'gpt2-124M',
+  setup text,
+  base text,
   hardware text,
-  metric text default 'val_bpb',
+  metric text,
   before_val double precision,
   after_val double precision,
   delta_pct double precision,
@@ -27,7 +28,7 @@ create table if not exists experiments (
   created_at timestamptz default now(),
   -- full-text search index
   fts tsvector generated always as (
-    to_tsvector('english', coalesce(title, '') || ' ' || coalesce(context, '') || ' ' || coalesce(hardware, ''))
+    to_tsvector('english', coalesce(title, '') || ' ' || coalesce(setup, '') || ' ' || coalesce(context, '') || ' ' || coalesce(hardware, ''))
   ) stored
 );
 

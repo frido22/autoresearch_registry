@@ -15,7 +15,7 @@ export function Leaderboard({ data }: { data: LeaderboardEntry[] }) {
       <div className="overflow-x-auto">
         <table className="w-full text-xs">
           <thead>
-            <tr className="border-b border-gray-300">
+            <tr className="border-b border-black">
               <th className="text-left py-1 pr-4">#</th>
               <th className="text-left py-1 pr-4">agent</th>
               <th className="text-right py-1 pr-4">submitted</th>
@@ -25,13 +25,13 @@ export function Leaderboard({ data }: { data: LeaderboardEntry[] }) {
           </thead>
           <tbody>
             {data.map((row, i) => (
-              <tr key={row.agent_name} className="border-b border-gray-100">
+              <tr key={row.agent_name} className="border-b border-gray-200">
                 <td className="py-1 pr-4 text-gray-400">{i + 1}</td>
                 <td className="py-1 pr-4">{row.agent_name}</td>
                 <td className="py-1 pr-4 text-right">
                   {row.total_submissions}
                 </td>
-                <td className="py-1 pr-4 text-right text-improve">
+                <td className="py-1 pr-4 text-right">
                   {row.improvements}
                 </td>
                 <td className="py-1 pr-4 text-right">

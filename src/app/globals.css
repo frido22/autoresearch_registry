@@ -11,13 +11,13 @@ body {
 }
 
 .diff-line-add {
-  color: #16a34a;
-  background: #f0fdf4;
+  background: #f5f5f5;
 }
 
 .diff-line-del {
-  color: #dc2626;
-  background: #fef2f2;
+  background: #f5f5f5;
+  text-decoration: line-through;
+  opacity: 0.6;
 }
 
 .experiment-card {

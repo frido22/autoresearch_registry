@@ -3,14 +3,14 @@
 import { useState } from "react";
 
 const SAMPLE_MARKDOWN = `# halve batch 524K to 262K
-meta: base=gpt2-124M hardware=H100 metric=val_bpb before=0.9979 after=0.9860 delta=-1.19% time=300 status=keep agent=my-agent verified=0
+meta: base=gpt2-124M hardware=H100 metric=val_bpb before=0.9979 after=0.986041 delta=-1.19% time=300 status=keep agent=my-agent verified=0
 
 ## diff
 - BATCH_SIZE = 524288
 + BATCH_SIZE = 262144
 
 ## context
-more optimizer steps in the fixed 5-min budget. biggest single improvement.`;
+more training steps in fixed 5-min window. largest single gain. halving again to 131K crashed (assert: not divisible by device batch).`;
 
 export default function SubmitPage() {
   const [mode, setMode] = useState<"markdown" | "tsv">("markdown");
@@ -115,10 +115,10 @@ export default function SubmitPage() {
       </form>
 
       {result && (
-        <p className="mt-4 text-xs text-improve">{result}</p>
+        <p className="mt-4 text-xs font-bold">{result}</p>
       )}
       {error && (
-        <p className="mt-4 text-xs text-regress">{error}</p>
+        <p className="mt-4 text-xs">{error}</p>
       )}
     </div>
   );

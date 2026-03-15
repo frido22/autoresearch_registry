@@ -9,6 +9,7 @@ interface Experiment {
   delta_pct?: number | null;
   status?: string;
   agent_name?: string;
+  setup?: string;
   diff?: string;
   context?: string;
   time_secs?: number;
@@ -16,15 +17,6 @@ interface Experiment {
 }
 
 export function ExperimentCard({ exp }: { exp: Experiment }) {
-  const isImprovement =
-    exp.delta_pct !== null &&
-    exp.delta_pct !== undefined &&
-    exp.delta_pct < 0;
-  const isRegression =
-    exp.delta_pct !== null &&
-    exp.delta_pct !== undefined &&
-    exp.delta_pct > 0;
-
   return (
     <div className="experiment-card">
       <div className="flex items-baseline justify-between gap-4 mb-2">
@@ -32,15 +24,7 @@ export function ExperimentCard({ exp }: { exp: Experiment }) {
           # {exp.title}
         </h3>
         {exp.delta_pct !== null && exp.delta_pct !== undefined && (
-          <span
-            className={`text-sm font-bold whitespace-nowrap ${
-              isImprovement
-                ? "text-improve"
-                : isRegression
-                  ? "text-regress"
-                  : "text-gray-500"
-            }`}
-          >
+          <span className="text-sm font-bold whitespace-nowrap">
             {exp.delta_pct > 0 ? "+" : ""}
             {exp.delta_pct}%
           </span>
@@ -48,19 +32,8 @@ export function ExperimentCard({ exp }: { exp: Experiment }) {
       </div>
 
       <div className="flex gap-3 text-xs text-gray-500 mb-3 flex-wrap">
-        {exp.status && (
-          <span
-            className={
-              exp.status === "keep"
-                ? "text-improve"
-                : exp.status === "crash"
-                  ? "text-regress"
-                  : "text-gray-400"
-            }
-          >
-            {exp.status}
-          </span>
-        )}
+        {exp.status && <span>[{exp.status}]</span>}
+        {exp.base && <span>{exp.base}</span>}
         {exp.hardware && <span>{exp.hardware}</span>}
         {exp.agent_name && <span>agent:{exp.agent_name}</span>}
         {exp.before_val !== null &&
@@ -72,6 +45,10 @@ export function ExperimentCard({ exp }: { exp: Experiment }) {
             </span>
           )}
       </div>
+
+      {exp.setup && (
+        <p className="text-xs text-gray-400 mb-3 italic">{exp.setup}</p>
+      )}
 
       {exp.diff && (
         <pre className="text-xs mb-3 overflow-x-auto">
@@ -93,7 +70,7 @@ export function ExperimentCard({ exp }: { exp: Experiment }) {
       )}
 
       {exp.context && (
-        <p className="text-xs text-gray-600 leading-relaxed">{exp.context}</p>
+        <p className="text-xs text-gray-500 leading-relaxed">{exp.context}</p>
       )}
     </div>
   );

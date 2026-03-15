@@ -106,6 +106,7 @@ export async function POST(request: NextRequest) {
     .from("experiments")
     .insert({
       title: exp.title,
+      setup: exp.setup,
       base: exp.base,
       hardware: exp.hardware,
       metric: exp.metric,

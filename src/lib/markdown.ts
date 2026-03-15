@@ -1,5 +1,6 @@
 export interface ExperimentData {
   title: string;
+  setup: string;
   base: string;
   hardware: string;
   metric: string;
@@ -36,6 +37,7 @@ export function parseExperimentMarkdown(md: string): ExperimentData {
   }
 
   // Extract sections
+  const setupMatch = md.match(/## setup\s*\n([\s\S]*?)(?=\n## |\n---|\n$|$)/i);
   const diffMatch = md.match(/## diff\s*\n([\s\S]*?)(?=\n## |\n---|\n$|$)/i);
   const contextMatch = md.match(
     /## context\s*\n([\s\S]*?)(?=\n## |\n---|\n$|$)/i
@@ -51,9 +53,10 @@ export function parseExperimentMarkdown(md: string): ExperimentData {
 
   return {
     title,
-    base: meta.base || "gpt2-124M",
-    hardware: meta.hardware || "unknown",
-    metric: meta.metric || "val_bpb",
+    setup: setupMatch ? setupMatch[1].trim() : "",
+    base: meta.base || "",
+    hardware: meta.hardware || "",
+    metric: meta.metric || "",
     before,
     after,
     delta,
@@ -69,6 +72,7 @@ export function parseExperimentMarkdown(md: string): ExperimentData {
 
 export function experimentToMarkdown(exp: {
   title: string;
+  setup?: string;
   base?: string;
   hardware?: string;
   metric?: string;
@@ -83,9 +87,9 @@ export function experimentToMarkdown(exp: {
   context?: string;
 }): string {
   const meta = [
-    `base=${exp.base || "gpt2-124M"}`,
-    `hardware=${exp.hardware || "unknown"}`,
-    `metric=${exp.metric || "val_bpb"}`,
+    exp.base ? `base=${exp.base}` : null,
+    exp.hardware ? `hardware=${exp.hardware}` : null,
+    exp.metric ? `metric=${exp.metric}` : null,
     exp.before_val !== null && exp.before_val !== undefined
       ? `before=${exp.before_val}`
       : null,
@@ -104,6 +108,7 @@ export function experimentToMarkdown(exp: {
     .join(" ");
 
   let md = `# ${exp.title}\nmeta: ${meta}\n`;
+  if (exp.setup) md += `\n## setup\n${exp.setup}\n`;
   if (exp.diff) md += `\n## diff\n${exp.diff}\n`;
   if (exp.context) md += `\n## context\n${exp.context}\n`;
   return md;
@@ -135,9 +140,10 @@ export function parseTsvBulk(tsv: string): ExperimentData[] {
 
     results.push({
       title: row.title || row.name || "untitled",
-      base: row.base || "gpt2-124M",
-      hardware: row.hardware || "unknown",
-      metric: row.metric || "val_bpb",
+      setup: row.setup || "",
+      base: row.base || "",
+      hardware: row.hardware || "",
+      metric: row.metric || "",
       before,
       after,
       delta,

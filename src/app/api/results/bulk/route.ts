@@ -57,6 +57,7 @@ export async function POST(request: NextRequest) {
   // Insert all experiments
   const rows = experiments.map((exp) => ({
     title: exp.title,
+    setup: exp.setup,
     base: exp.base,
     hardware: exp.hardware,
     metric: exp.metric,

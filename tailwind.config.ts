@@ -11,10 +11,6 @@ const config: Config = {
       fontFamily: {
         mono: ['"IBM Plex Mono"', "monospace"],
       },
-      colors: {
-        improve: "#16a34a",
-        regress: "#dc2626",
-      },
       maxWidth: {
         doc: "720px",
       },
